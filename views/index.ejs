@@ -1,11 +1,36 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <h1><%= title %></h1>
-    <p>Welcome to <%= title %></p>
-  </body>
-</html>
+<%- include('partials/header') %>
+
+<%- include('partials/navbar') %>
+
+<section class="hero">
+  <div class="hero-content">
+    <h1>Welcome to Step Polls</h1>
+    <p>The ultimate platform for creating interactive, engaging polls.</p>
+    <a href="#get-started" class="btn-primary">Get Started</a>
+  </div>
+
+</section>
+
+<!-- Features Section -->
+<section id="features" class="features">
+  <h2>Why Choose Step Polls?</h2>
+  <div class="features-container">
+    <div class="feature-card">
+      <i class="fas fa-chart-bar"></i>
+      <h3>Real-Time Results</h3>
+      <p>Instantly track poll outcomes with live updates.</p>
+    </div>
+    <div class="feature-card">
+      <i class="fas fa-users"></i>
+      <h3>User-Friendly</h3>
+      <p>Create and share polls effortlessly with our intuitive UI.</p>
+    </div>
+    <div class="feature-card">
+      <i class="fas fa-mobile-alt"></i>
+      <h3>Mobile Responsive</h3>
+      <p>Access polls anywhere with seamless mobile compatibility.</p>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>
