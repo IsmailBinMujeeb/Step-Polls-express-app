@@ -10,6 +10,7 @@ const flash = require('connect-flash');
 const userModel = require('./models/user-model');
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
+const GoogleStrategy = require('passport-google-oauth20').Strategy;
 require('dotenv').config();
 
 const indexRouter = require('./routes/indexRouter');
@@ -19,6 +20,8 @@ const loginRouter = require('./routes/loginRouter');
 const loginPostRouter = require('./routes/loginPostRouter');
 const createPollRouter = require('./routes/createPollRouter');
 const createPollPostRouter = require('./routes/createPollPostRouter');
+const googleLoginRouter = require('./routes/googleLoginRouter');
+const googleAuthCallback = require('./routes/googleAuthCallbackRputer');
 
 const app = express();
 
@@ -41,20 +44,45 @@ app.use(session({
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new LocalStrategy({usernameField: 'email', passwordField: 'password'}, async (email, password, done) => {
+passport.use(new LocalStrategy({ usernameField: 'email', passwordField: 'password' }, async (email, password, done) => {
     const user = await userModel.findOne({ email });
-    
+
     if (!user) return done(null, false, { message: "Incorrect Username or Password" });
 
     bcrypt.compare(password, user.password, (err, match) => {
 
-        if (err) return done(err);        
+        if (err) return done(err);
 
         if (!match) return done(null, false, { message: "Incorrect Username or Password" });
 
         return done(null, user);
     })
-}))
+}));
+
+passport.use(new GoogleStrategy({
+    clientID: process.env.GOOGLE_CLIENT_ID,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET,
+    callbackURL: '/auth/google/callback',
+}, 
+
+async (accessToken, refreshToken, profile, done)=>{
+    
+    try {
+        
+        const user = await userModel.findOneAndUpdate({ googleId: profile.id }, {
+            name: profile.displayName,
+            email: profile.emails[0].value,
+        }, {new: true, upsert: true});
+
+        done(null, user)
+
+    } catch (error) {
+        done(error, done)
+    }
+
+}
+
+))
 
 passport.serializeUser((user, done) => {
     done(null, user.id)
@@ -75,6 +103,8 @@ app.use('/login', loginRouter);
 app.use('/login', loginPostRouter);
 app.use('/create-poll', createPollRouter);
 app.use('/create-poll', createPollPostRouter);
+app.use('/auth/google', googleLoginRouter);
+app.use('/auth/google/callback', googleAuthCallback);
 
 app.use(function (req, res, next) {
     next(createError(404));
