@@ -1,0 +1,42 @@
+<%- include('partials/header', { title: "Create Poll", cssFiles: ['navbar', 'footer', 'createPollPage'] }) %>
+
+<%- include('partials/navbar') %>
+
+<section class="create-poll-section">
+    <div class="create-poll-container">
+      <h1>Create a New Poll</h1>
+      <form class="poll-form" method="post" action="/create-poll">
+        <div class="form-group">
+          <label for="poll-question">Poll Question</label>
+          <input type="text" id="poll-question" name="pollQuestion" placeholder="Enter your poll question here" maxlength="50" required>
+        </div>
+        <div class="form-group">
+          <label for="poll-options">Poll Options</label>
+          <div id="poll-options">
+            <div class="option-input">
+              <input type="text" name="options" placeholder="Option 1" required>
+            </div>
+            <div class="option-input">
+              <input type="text" name="options" placeholder="Option 2" required>
+            </div>
+          </div>
+          <button type="button" id="addOption" class="add-option-btn">+ Add Another Option</button>
+        </div>
+        <div class="form-group">
+          <label for="poll-duration">Poll Duration</label>
+          <select id="poll-duration" name="pollDuration" required>
+            <option value="" disabled selected>Select duration</option>
+            <option value="86400000">1 Day</option>
+            <option value="604800000" selected>1 Week</option>
+            <option value="2592000000">1 Month</option>
+          </select>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="submit-btn">Create Poll</button>
+          <button type="reset" class="reset-btn">Reset</button>
+        </div>
+      </form>
+    </div>
+  </section>
+
+  <%- include('partials/footer') %>

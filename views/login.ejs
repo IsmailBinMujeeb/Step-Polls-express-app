@@ -1,0 +1,29 @@
+<%- include('partials/header', {title: "Login", cssFiles: ['navbar', 'footer', 'loginPage']}) %>
+
+<%- include('partials/navbar') %>
+
+<section class="login-section">
+  <div class="login-container">
+    <h1>Welcome Back!</h1>
+    <% if (err && err.length) { %>
+      <p class="flash-msg"><%= err %></p>
+    <% } else { %>
+      <p class="para">Log in to continue exploring and managing your polls effortlessly.</p>
+      <% } %>
+    <form class="login-form" method="post" action="/login">
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input type="email" id="email" name="email" placeholder="Enter your email" required>
+      </div>
+      <div class="form-group">
+        <label for="password">Password</label>
+        <input type="password" id="password" name="password" placeholder="Enter your password" required>
+      </div>
+      <button type="submit" class="btn-primary">Log In</button>
+      <a href="/auth/google" class="btn-primary">Google</a>
+      <p class="signup-link">Don't have an account? <a href="/signup">Sign Up</a></p>
+    </form>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

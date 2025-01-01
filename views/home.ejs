@@ -1,0 +1,27 @@
+<%- include('partials/header', { title: "Step Polls", cssFiles: ['navbar', 'footer', 'pollsPage'] }) %>
+
+<%- include('partials/navbar') %>
+
+<section class="polls-section">
+  <div class="polls-header">
+    <h1>Explore Polls</h1>
+    <p>Discover trending polls, cast your votes, and see what others think!</p>
+  </div>
+  <div class="polls-container">
+
+    <% polls.forEach(poll => { %>
+    <div class="poll-card">
+      <div class="poll-title"><%= poll.pollQuestion %></div>
+      <div class="poll-options">
+        <% poll.pollOptions.forEach(opt => { %>
+        <button class="poll-option"><%= opt %></button>
+        <% }) %>
+      </div>
+      <div class="poll-info">Posted by <span><%= poll.pollOperator.name %></span> | <%- poll.createdAt %></div>
+    </div>
+    <% }) %>
+
+  </div>
+</section>
+
+<%- include('partials/footer') %>

@@ -1,10 +1,14 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
   <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
     <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/navbar.css' />
-    <link rel='stylesheet' href='/stylesheets/footer.css' />
-    <link rel='stylesheet' href='/stylesheets/style.css' />
+
+    <% cssFiles.forEach(file => { %>
+      <link rel="stylesheet" href="/stylesheets/<%= file %>.css">
+    <% }) %>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   </head>
   <body>

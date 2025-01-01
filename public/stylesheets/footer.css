@@ -3,6 +3,7 @@
     color: white;
     padding: 2rem 1rem;
     text-align: center;
+    width: 100%;
 }
 
 .footer-container {
@@ -90,16 +91,21 @@
     color: #e0e0e0;
 }
 
-@media screen and (max-width: 600px) {
+@media (max-width: 1024px) {
     .footer-container {
         flex-direction: column;
         text-align: center;
-        background-color: red;
     }
 
     .footer-logo,
     .footer-links,
     .footer-social {
         text-align: center;
+    }
+
+    .social-icons{
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }

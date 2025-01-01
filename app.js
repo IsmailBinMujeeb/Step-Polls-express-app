@@ -1,15 +1,27 @@
-var createError = require('http-errors');
-var express = require('express');
-var path = require('path');
-var cookieParser = require('cookie-parser');
-var logger = require('morgan');
+const createError = require('http-errors');
+const conn = require('./config/db');
+const express = require('express');
+const session = require('express-session');
+const path = require('path');
+const cookieParser = require('cookie-parser');
+const logger = require('morgan');
+const bcrypt = require('bcryptjs');
+const flash = require('connect-flash');
+const userModel = require('./models/user-model');
+const passport = require('passport');
+const LocalStrategy = require('passport-local').Strategy;
+require('dotenv').config();
 
-var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+const indexRouter = require('./routes/indexRouter');
+const signUpRouter = require('./routes/signupRouter');
+const signUpPostRouter = require('./routes/signupPostRouter');
+const loginRouter = require('./routes/loginRouter');
+const loginPostRouter = require('./routes/loginPostRouter');
+const createPollRouter = require('./routes/createPollRouter');
+const createPollPostRouter = require('./routes/createPollPostRouter');
 
-var app = express();
+const app = express();
 
-// view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
 
@@ -19,23 +31,61 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use(session({
+    saveUninitialized: false,
+    resave: false,
+    secret: process.env.SESSION_SECRET || "MySecret",
+    cookie: { maxAge: 9000000000000 },
+}))
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
+app.use(passport.initialize());
+app.use(passport.session());
+
+passport.use(new LocalStrategy({usernameField: 'email', passwordField: 'password'}, async (email, password, done) => {
+    const user = await userModel.findOne({ email });
+    
+    if (!user) return done(null, false, { message: "Incorrect Username or Password" });
+
+    bcrypt.compare(password, user.password, (err, match) => {
+
+        if (err) return done(err);        
+
+        if (!match) return done(null, false, { message: "Incorrect Username or Password" });
+
+        return done(null, user);
+    })
+}))
+
+passport.serializeUser((user, done) => {
+    done(null, user.id)
 });
 
-// error handler
-app.use(function(err, req, res, next) {
-  // set locals, only providing error in development
-  res.locals.message = err.message;
-  res.locals.error = req.app.get('env') === 'development' ? err : {};
+passport.deserializeUser(async (id, done) => {
 
-  // render the error page
-  res.status(err.status || 500);
-  res.render('error');
+    const user = await userModel.findOne({ _id: id });
+    done(null, user)
+});
+
+app.use(flash());
+
+app.use('/', indexRouter);
+app.use('/signup', signUpRouter);
+app.use('/signup', signUpPostRouter);
+app.use('/login', loginRouter);
+app.use('/login', loginPostRouter);
+app.use('/create-poll', createPollRouter);
+app.use('/create-poll', createPollPostRouter);
+
+app.use(function (req, res, next) {
+    next(createError(404));
+});
+
+app.use(function (err, req, res, next) {
+    res.locals.message = err.message;
+    res.locals.error = req.app.get('env') === 'development' ? err : {};
+
+    res.status(err.status || 500);
+    res.render('error', { e1: res.locals.error, e2: res.locals.message });
 });
 
 module.exports = app;
