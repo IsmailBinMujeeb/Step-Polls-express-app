@@ -1,4 +1,5 @@
 <%- include('partials/header', { title: "Step Polls - Polls", cssFiles: ['navbar', 'footer', 'pollDetailsPage'] }) %>
+<script src="/javascripts/pollDetails.js"></script>
 
 <%- include('partials/navbar') %>
 
@@ -24,18 +25,16 @@
     <div class="comments-section">
       <h2>Comments</h2>
       <div class="comment-box">
-        <textarea placeholder="Write a comment..." rows="3"></textarea>
-        <button class="comment-btn">Post Comment</button>
+        <textarea placeholder="Write a comment..." rows="3" id="comment"></textarea>
+        <button class="comment-btn" onclick="postComment(`/post-comment?user=<%= userid %>&id=<%= poll._id %>&comment=`)">Post Comment</button>
       </div>
-      <div class="comments-list">
-        <div class="comment">
-          <span class="comment-author">John Doe</span>
-          <p>Python is the best for beginners and professionals alike!</p>
-        </div>
-        <div class="comment">
-          <span class="comment-author">Jane Smith</span>
-          <p>JavaScript is versatile and amazing for web development!</p>
-        </div>
+      <div class="comments-list" id="commentList">
+        <% poll.comments.forEach(comment => { %>
+          <div class="comment">
+            <span class="comment-author"><%= comment.user %></span>
+            <p><%= comment.comment %></p>
+          </div>
+        <% }) %>
       </div>
     </div>
   </div>

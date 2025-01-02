@@ -1,7 +1,8 @@
 const router = require('express').Router();
 const pollModel = require('../models/poll-model');
+const { isAuthenticated } = require('../utils/isAuth')
 
-router.get('/', async (req, res) => {
+router.get('/', isAuthenticated, async (req, res) => {
 
     try {
         const { id } = req.query;
@@ -13,13 +14,11 @@ router.get('/', async (req, res) => {
             counts[option.option] = (counts[option.option] || 0) + 1;
             totalVotes++;
             return counts;
-          }, {});
+        }, {});
 
-        console.log(typeof ((votesCounter['Me']/totalVotes)*100), typeof votesCounter['Me'])
-
-        res.render('pollDetails', {poll, votes: votesCounter, totalVotes})
+        res.render('pollDetails', { poll, userid: req.session.passport.user, votes: votesCounter, totalVotes })
     } catch (error) {
-        console.log(poll)
+        console.log(error)
     }
 })
 

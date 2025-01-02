@@ -34,7 +34,9 @@ const pollSchema = mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
         default: []
-    }]
+    }],
+
+    comments: [],
 })
 
 module.exports = mongoose.model('polls', pollSchema);

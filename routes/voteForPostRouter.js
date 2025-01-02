@@ -1,21 +1,26 @@
+const mongoose = require('mongoose');
 const router = require('express').Router();
 const pollModel = require('../models/poll-model');
 
 router.get('/', async (req, res) => {
 
     try {
-        const {user, id, option } = req.query;
+        const { user, id, option } = req.query;
 
         const poll = await pollModel.findOne({ _id: id });
 
-        poll.votes.push({ option, user });
+        const isVoted = poll.votedUsers.some(id => id.equals(new mongoose.Types.ObjectId(user)))
 
-        poll.votedUsers.push(user);
+        if (!isVoted) {
+            poll.votes.push({ option, user });
 
-        poll.save();
+            poll.votedUsers.push(user);
 
-        res.redirect(`/poll?id=${id}`)
+            poll.save();
+        }
         
+        return res.redirect(`/poll?id=${id}`)
+
     } catch (error) {
         console.log(error)
     }

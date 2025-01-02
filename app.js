@@ -24,6 +24,7 @@ const googleLoginRouter = require('./routes/googleLoginRouter');
 const googleAuthCallback = require('./routes/googleAuthCallbackRputer');
 const voteForPostRouter = require('./routes/voteForPostRouter');
 const pollDetailsRouter = require('./routes/pollDetailsRouter');
+const pollCommentPostRouter = require('./routes/pollCommentPostRouter');
 
 const app = express();
 
@@ -109,6 +110,7 @@ app.use('/auth/google', googleLoginRouter);
 app.use('/auth/google/callback', googleAuthCallback);
 app.use('/votefor', voteForPostRouter);
 app.use('/poll', pollDetailsRouter);
+app.use('/post-comment', pollCommentPostRouter);
 
 app.use(function (req, res, next) {
     next(createError(404));
