@@ -16,7 +16,7 @@ router.get('/', async (req, res)=>{
       poll.createdAt = dayjs(poll.createdAt).fromNow();
     });
 
-    res.render('home', { polls })
+    res.render('home', { polls, user: req.session.passport.user })
   } else {
     res.render('index');
   }

@@ -1,0 +1,164 @@
+.poll-details-section {
+    padding: 2rem;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.poll-container {
+    background: var(--dark-black);
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    max-width: 600px;
+    width: 100%;
+}
+
+.poll-question {
+    font-size: 1.8rem;
+    color: var(--high-green);
+    margin-bottom: 1.5rem;
+    text-align: center;
+}
+
+.poll-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.poll-option {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.option-header {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    color: #f6f6f6;
+}
+
+.progress-bar {
+    background: #e0e0e0;
+    border-radius: 5px;
+    overflow: hidden;
+    height: 15px;
+}
+
+.progress {
+    background: var(--high-green);
+    height: 100%;
+    transition: width 0.3s ease-in-out;
+}
+
+.votes-count {
+    font-size: 0.9rem;
+    color: #666;
+    text-align: right;
+}
+
+.comments-section {
+    margin-top: 2rem;
+}
+
+.comments-section h2 {
+    font-size: 1.5rem;
+    color: #f9f9f9;
+    margin-bottom: 1rem;
+}
+
+.comment-box {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    margin-bottom: 1.5rem;
+}
+
+.comment-box textarea {
+    padding: 0.8rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    resize: none;
+}
+
+.comment-box .comment-btn {
+    background-color: var(--high-green);
+    color: black;
+    border: none;
+    border-radius: 5px;
+    padding: 0.8rem;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.comment-box .comment-btn:hover {
+    background-color: #45a049;
+}
+
+.comments-list {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.comment {
+    background: #424549;
+    padding: 1rem;
+    border-radius: 5px;
+}
+
+.comment-author {
+    font-weight: bold;
+    color: #f6f6f6;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.comment p {
+    font-size: 0.9rem;
+    color: #f6f6f6;
+}
+
+@media (max-width: 768px) {
+    .poll-container {
+        padding: 1.5rem;
+    }
+
+    .poll-question {
+        font-size: 1.5rem;
+    }
+
+    .poll-options {
+        gap: 1rem;
+    }
+
+    .progress-bar {
+        height: 12px;
+    }
+
+    .votes-count {
+        font-size: 0.8rem;
+    }
+
+    .comments-section h2 {
+        font-size: 1.3rem;
+    }
+
+    .comment-box textarea {
+        font-size: 0.9rem;
+    }
+
+    .comment-box .comment-btn {
+        font-size: 0.9rem;
+    }
+
+    .comment p {
+        font-size: 0.8rem;
+    }
+}

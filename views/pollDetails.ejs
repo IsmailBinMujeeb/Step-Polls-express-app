@@ -1,0 +1,44 @@
+<%- include('partials/header', { title: "Step Polls - Polls", cssFiles: ['navbar', 'footer', 'pollDetailsPage'] }) %>
+
+<%- include('partials/navbar') %>
+
+<section class="poll-details-section">
+  <div class="poll-container">
+    <h1 class="poll-question"><%= poll.pollQuestion %></h1>
+
+    <div class="poll-options">
+
+        <% poll.pollOptions.forEach(opt => { %>
+            <div class="poll-option">
+                <div class="option-header">
+                  <span><%= opt %></span>
+                  <span><%= (((votes[opt] || 0)/totalVotes)*100).toFixed(0) %>%</span>
+                </div>
+                <div class="progress-bar">
+                  <div class="progress" style="width: <%= (((votes[opt] || 0)/totalVotes)*100).toFixed(0) %>%;"></div>
+                </div>
+                <span class="votes-count"><%= (votes[opt] || 0) %> votes</span>
+            </div>
+        <% }) %>
+
+    <div class="comments-section">
+      <h2>Comments</h2>
+      <div class="comment-box">
+        <textarea placeholder="Write a comment..." rows="3"></textarea>
+        <button class="comment-btn">Post Comment</button>
+      </div>
+      <div class="comments-list">
+        <div class="comment">
+          <span class="comment-author">John Doe</span>
+          <p>Python is the best for beginners and professionals alike!</p>
+        </div>
+        <div class="comment">
+          <span class="comment-author">Jane Smith</span>
+          <p>JavaScript is versatile and amazing for web development!</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%- include('partials/footer') %>

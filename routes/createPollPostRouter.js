@@ -10,9 +10,7 @@ router.post('/', async (req, res)=>{
 
         const user = await userModel.findOne({_id: req.session.passport.user})
 
-        console.log(user, req.session.passport.user)
-
-        const newPoll = await pollModel.create({ pollQuestion, pollOptions: options, pollDuration: Date.now() + Number(pollDuration), pollOperator: user._id });
+        const newPoll = await pollModel.create({ pollQuestion, pollOptions: options, pollDuration: Date.now() + Number(pollDuration), pollOperator: user._id } );
 
         user.polls.push(newPoll);
         user.save();

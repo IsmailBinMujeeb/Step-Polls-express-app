@@ -14,7 +14,7 @@
       <div class="poll-title"><%= poll.pollQuestion %></div>
       <div class="poll-options">
         <% poll.pollOptions.forEach(opt => { %>
-        <button class="poll-option"><%= opt %></button>
+        <a class="poll-option" href="/votefor?user=<%= user %>&id=<%= poll._id %>&option=<%= opt %>" ><%= opt %></a>
         <% }) %>
       </div>
       <div class="poll-info">Posted by <span><%= poll.pollOperator.name %></span> | <%- poll.createdAt %></div>
