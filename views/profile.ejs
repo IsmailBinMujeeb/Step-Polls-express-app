@@ -1,0 +1,39 @@
+<%- include('partials/header', {title: "Step Polls - Profile Page", cssFiles: ['navbar', 'footer', 'profilePage']}) %>
+
+<%- include('partials/navbar') %>
+
+<section class="profile-section">
+  <div class="profile-container">
+    <h1 class="user-name"><%= user.name %></h1>
+    <p class="user-email"><%= user.email %></p>
+
+    <div class="tab-buttons">
+      <button class="tab-btn active" data-tab="unended">Unended Polls</button>
+      <button class="tab-btn" data-tab="ended">Ended Polls</button>
+    </div>
+
+    <div class="tab-content">
+      <!-- Unended Polls Tab -->
+      <div id="unended" class="tab-pane active">
+        <% unEndedPolls.forEach(poll => { %>
+            <div class="poll-card">
+                <h2 class="poll-title"><%= poll.pollQuestion %></h2>
+                <p class="poll-meta">Posted on: <%= poll.createdAt.getDate() + '/' + (poll.createdAt.getMonth() + 1) + '/' + poll.createdAt.getFullYear() %></p>
+            </div>
+        <% }) %>
+      </div>
+
+      <!-- Ended Polls Tab -->
+      <div id="ended" class="tab-pane">
+        <% endedPolls.forEach(poll => { %>
+            <div class="poll-card">
+                <h2 class="poll-title"><%= poll.pollQuestion %></h2>
+                <p class="poll-meta">Ended on: <%= poll.pollDuration.getDate() + '/' + (poll.pollDuration.getMonth() + 1) + '/' + poll.pollDuration.getFullYear() %></p>
+            </div>
+        <% }) %>
+      </div>
+    </div>
+  </div>
+</section>
+<script src="/javascripts/profilePage.js"></script>
+<%- include('partials/footer') %>

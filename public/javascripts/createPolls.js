@@ -1,8 +1,6 @@
 let addOption = document.getElementById('addOption');
 let pollOptions = document.getElementById('poll-options');
 
-console.log(pollOptions)
-
 addOption.addEventListener('click', ()=>{
 
     const option = document.createElement('input');

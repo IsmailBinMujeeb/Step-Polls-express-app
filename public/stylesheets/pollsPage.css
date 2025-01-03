@@ -61,6 +61,7 @@
 .poll-option {
     flex: 1;
     text-align: center;
+    text-decoration: none;
     background-color: #4caf50;
     color: white;
     padding: 0.8rem;
@@ -82,9 +83,10 @@
     text-align: right;
 }
 
-.poll-info span {
+.poll-info a {
     color: #4caf50;
     font-weight: bold;
+    text-decoration: none;
 }
 
 /* Responsive Design */

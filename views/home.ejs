@@ -17,7 +17,7 @@
         <a class="poll-option" href="/votefor?user=<%= user %>&id=<%= poll._id %>&option=<%= opt %>" ><%= opt %></a>
         <% }) %>
       </div>
-      <div class="poll-info">Posted by <span><%= poll.pollOperator.name %></span> | <%- poll.createdAt %></div>
+      <div class="poll-info">Posted by <a href="/profile?user=<%= poll.pollOperator._id %>"><%= poll.pollOperator.name %></a> | <%- poll.createdAt %></div>
     </div>
     <% }) %>
 

@@ -1,10 +1,8 @@
 const postComment = (url) => {
 
-    const comment = document.getElementById('comment').value;
+    const comment = document.getElementById('comment');
 
-    console.log(url + comment)
-
-    fetch(url + comment, {method: 'POST'})
+    fetch(url + comment.value, {method: 'POST'})
         .then(response => response.json())
         .then(data => {
             const div = document.createElement('div');
@@ -20,6 +18,8 @@ const postComment = (url) => {
             div.appendChild(span);
             div.appendChild(para);
             document.getElementById('commentList').appendChild(div);
+
+            comment.value = '';
         })
         .catch(error => console.error('Error fetching data:', error));
 }
