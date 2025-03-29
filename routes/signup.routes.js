@@ -1,7 +1,11 @@
 const router = require('express').Router();
-const passport = require('passport');
 const userModel = require('../models/user-model');
 const bcrypt = require('bcryptjs');
+
+router.get('/', (req, res)=>{
+
+    res.render('signup');
+});
 
 router.post('/', async (req, res, next)=>{
 

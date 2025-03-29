@@ -6,7 +6,7 @@ const relativeTime = require('dayjs/plugin/relativeTime');
 
 dayjs.extend(relativeTime)
 
-router.get('/', async (req, res)=>{
+router.get('/', async (req, res) => {
 
   if (req.isAuthenticated()) {
 
@@ -20,7 +20,7 @@ router.get('/', async (req, res)=>{
   } else {
     res.render('index');
   }
-  
+
 });
 
 module.exports = router;

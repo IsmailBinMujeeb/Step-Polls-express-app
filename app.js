@@ -13,19 +13,14 @@ const LocalStrategy = require('passport-local').Strategy;
 const GoogleStrategy = require('passport-google-oauth20').Strategy;
 require('dotenv').config();
 
-const indexRouter = require('./routes/indexRouter');
-const signUpRouter = require('./routes/signupRouter');
-const signUpPostRouter = require('./routes/signupPostRouter');
-const loginRouter = require('./routes/loginRouter');
-const loginPostRouter = require('./routes/loginPostRouter');
-const createPollRouter = require('./routes/createPollRouter');
-const createPollPostRouter = require('./routes/createPollPostRouter');
-const googleLoginRouter = require('./routes/googleLoginRouter');
-const googleAuthCallback = require('./routes/googleAuthCallbackRputer');
-const voteForPostRouter = require('./routes/voteForPostRouter');
-const pollDetailsRouter = require('./routes/pollDetailsRouter');
-const pollCommentPostRouter = require('./routes/pollCommentPostRouter');
+const indexRouter = require('./routes/index.routes');
+const signUpRouter = require('./routes/signup.routes');
+const googleAuthRouter = require('./routes/googleauth.router')
+const voteForPostRouter = require('./routes/vote.routes');
 const profileRouter = require('./routes/profilePageRouter');
+
+const pollRouter = require('./routes/poll.routes');
+const loginRouter = require("./routes/login.routes")
 
 const app = express();
 
@@ -102,16 +97,12 @@ app.use(flash());
 
 app.use('/', indexRouter);
 app.use('/signup', signUpRouter);
-app.use('/signup', signUpPostRouter);
-app.use('/login', loginRouter);
-app.use('/login', loginPostRouter);
-app.use('/create-poll', createPollRouter);
-app.use('/create-poll', createPollPostRouter);
-app.use('/auth/google', googleLoginRouter);
-app.use('/auth/google/callback', googleAuthCallback);
+app.use("/", pollRouter);
+app.use("/", loginRouter)
+// app.use('/auth/google', googleLoginRouter);
+// app.use('/auth/google/callback', googleAuthCallback);
+app.use('/', googleAuthRouter);
 app.use('/votefor', voteForPostRouter);
-app.use('/poll', pollDetailsRouter);
-app.use('/post-comment', pollCommentPostRouter);
 app.use('/profile', profileRouter);
 
 app.use(function (req, res, next) {
