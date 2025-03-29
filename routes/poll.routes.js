@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { isAuthenticated } = require('../utils/isAuth');
+const { isAuthenticated } = require('../middlewares/authentication.middleware');
 const { createPollGetController, createPollPostController, postCommentController, getPollController } = require("../controllers/poll.controllers")
 
 router.get('/create-poll', isAuthenticated, createPollGetController)
